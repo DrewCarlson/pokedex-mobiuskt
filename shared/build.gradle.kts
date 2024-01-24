@@ -1,5 +1,3 @@
-import com.mocoding.pokedex.Configuration
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -55,6 +53,7 @@ kotlin {
             languageSettings {
                 optIn("kt.mobius.gen.ExperimentalCodegenApi")
                 optIn("kt.mobius.compose.ExperimentalMobiusktComposeApi")
+                optIn("androidx.compose.material3.ExperimentalMaterial3Api")
             }
         }
         val commonMain by getting {
@@ -151,10 +150,10 @@ kotlin {
 }
 
 android {
-    namespace = "com.mocoding.pokedex"
-    compileSdk = Configuration.compileSdk
+    namespace = "pokedex.shared"
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = Configuration.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -165,7 +164,7 @@ android {
 sqldelight {
     databases {
         create("PokemonDatabase") {
-            packageName.set("com.mocoding.pokedex.core.database")
+            packageName.set("pokedex.core.database")
         }
     }
 }

@@ -1,19 +1,17 @@
-import com.mocoding.pokedex.Configuration
-
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    namespace = "com.mocoding.pokedex.android"
-    compileSdk = Configuration.compileSdk
+    namespace = "pokedex.android"
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        applicationId = "com.mocoding.pokedex.android"
-        minSdk = Configuration.minSdk
-        targetSdk = Configuration.targetSdk
-        versionCode = Configuration.versionCode
-        versionName = Configuration.versionName
+        applicationId = "pokedex.android"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = 1
+        versionName = "1.0.0"
     }
     buildFeatures {
         compose = true
@@ -42,7 +40,7 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(libs.activity.compose)
 
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
