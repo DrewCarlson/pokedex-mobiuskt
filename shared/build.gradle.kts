@@ -1,28 +1,21 @@
-import com.mocoding.pokedex.Configuration
-
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("org.jetbrains.compose")
-    id("kotlin-parcelize")
     id("app.cash.sqldelight")
     alias(libs.plugins.ksp)
-}
-
-compose {
-    kotlinCompilerPlugin.set(libs.versions.composejbCompiler.get())
+    alias(libs.plugins.apollo)
 }
 
 dependencies {
     kspCommonMainMetadata(libs.mobiuskt.codegen)
+    kspCommonMainMetadata(libs.koin.ksp)
 }
 
 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
     applyDefaultHierarchyTemplate()
-    jvm("desktop")
+    jvm()
 
     androidTarget {
         compilations.all {
@@ -32,56 +25,32 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach { _ ->
-        cocoapods {
-            summary = "Pokedex the Shared Module"
-            homepage = "Link to the Shared Module homepage"
-            version = "1.0.0"
-            ios.deploymentTarget = "14.1"
-            podfile = project.file("../ios/Podfile")
-            framework {
-                baseName = "shared"
-                isStatic = true
-            }
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    //macosX64()
+    //macosArm64()
 
     sourceSets {
         all {
             languageSettings {
                 optIn("kt.mobius.gen.ExperimentalCodegenApi")
-                optIn("kt.mobius.compose.ExperimentalMobiusktComposeApi")
             }
         }
         val commonMain by getting {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             dependencies {
-                // Compose
-                with(compose) {
-                    api(runtime)
-                    api(foundation)
-                    api(material)
-                    api(material3)
-                    api(materialIconsExtended)
-                }
-
+                implementation(libs.apollo.runtime)
+                implementation(libs.apollo.caching)
                 // Ktor
                 api(libs.ktor.client.core)
                 api(libs.ktor.client.contentNegotiation)
                 api(libs.ktor.client.logging)
                 api(libs.ktor.serialization)
 
-                // SqlDelight
-                implementation(libs.sqldelight.coroutinesExtensions)
-                implementation(libs.sqldelight.primitiveAdapters)
-
                 // Koin
                 api(libs.koin.core)
-                api(libs.koin.compose)
+                implementation(libs.koin.annotations)
 
                 // KotlinX Serialization Json
                 implementation(libs.serialization.json)
@@ -93,14 +62,6 @@ kotlin {
                 api(libs.mobiuskt.coroutines)
                 implementation(libs.mobiuskt.extras)
                 implementation(libs.mobiuskt.codegen.api)
-                implementation(libs.mobiuskt.compose)
-
-                implementation(libs.coil)
-                implementation(libs.coil.compose)
-                implementation(libs.coil.network.ktor)
-
-                api(libs.precompose)
-                api(libs.precompose.viewmodel)
             }
         }
         val commonTest by getting {
@@ -110,51 +71,38 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                // Ktor
                 implementation(libs.ktor.client.okhttp)
-
-                // SqlDelight
-                implementation(libs.sqldelight.driver.android)
-
-                // Koin
                 implementation(libs.koin.android)
             }
         }
         val androidUnitTest by getting
 
-        val desktopMain by getting {
-            dependsOn(commonMain)
-
+        val jvmMain by getting {
             dependencies {
-                // Ktor
                 implementation(libs.ktor.client.okhttp)
-
-                // SqlDelight
-                implementation(libs.sqldelight.driver.sqlite)
             }
         }
 
-        val iosMain by getting {
+        val appleMain by getting {
             dependencies {
-                // Ktor
                 implementation(libs.ktor.client.darwin)
-
-                // SqlDelight
-                implementation(libs.sqldelight.driver.native)
             }
         }
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "17"
+        if (name != "kspCommonMainKotlinMetadata") {
+            dependsOn("kspCommonMainKotlinMetadata")
+        }
     }
 }
 
 android {
-    namespace = "com.mocoding.pokedex"
-    compileSdk = Configuration.compileSdk
+    namespace = "pokedex.shared"
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = Configuration.minSdk
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -162,19 +110,19 @@ android {
     }
 }
 
-sqldelight {
-    databases {
-        create("PokemonDatabase") {
-            packageName.set("com.mocoding.pokedex.core.database")
+apollo {
+    service("PokeApi") {
+        packageName.set("pokedex.graphql")
+        introspection {
+            endpointUrl.set("")
         }
     }
 }
 
-// For more details see: https://github.com/google/ksp/issues/567
-if (tasks.any { it.name == "kspCommonMainKotlinMetadata" }) {
-    tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().all {
-        if (name != "kspCommonMainKotlinMetadata") {
-            dependsOn("kspCommonMainKotlinMetadata")
+sqldelight {
+    databases {
+        create("PokemonDatabase") {
+            packageName.set("pokedex.core.database")
         }
     }
 }

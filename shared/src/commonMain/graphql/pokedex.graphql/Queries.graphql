@@ -1,0 +1,39 @@
+query PokemonList($offset: Int!, $limit: Int!) {
+    pokemon: pokemon_v2_pokemon(offset: $offset, limit: $limit) {
+        ...pokemonBasics
+        ...pokemonTypes
+    }
+}
+
+query PokemonInfoByName($name: String!) {
+    pokemon: pokemon_v2_pokemon(where: { name: { _eq: $name }}) {
+        ...pokemonBasics
+        ...pokemonTypes
+        ...pokemonStats
+        ...pokemonPhysical
+        ...pokemonSpecy
+    }
+}
+
+query PokemonSearch($query: String!, $limit: Int!, $offset: Int!) {
+    pokemon: pokemon_v2_pokemon(where: { name: { _like: $query } }, limit: $limit, offset: $offset) {
+        ...pokemonBasics
+        ...pokemonTypes
+    }
+}
+
+query MultiSearch($query: String!, $limit: Int!, $offset: Int!) {
+    pokemon: pokemon_v2_pokemon(where: { name: { _like: $query } }, limit: $limit, offset: $offset) {
+        ...pokemonBasics
+        ...pokemonTypes
+    }
+    items: pokemon_v2_item(where: { name: { _like: $query } }, limit: $limit, offset: $offset) {
+        name
+    }
+    moves: pokemon_v2_move(where: { name: { _like: $query } }, limit: $limit, offset: $offset) {
+        name
+    }
+    locations: pokemon_v2_location(where: { name: { _like: $query } }, limit: $limit, offset: $offset) {
+        name
+    }
+}
