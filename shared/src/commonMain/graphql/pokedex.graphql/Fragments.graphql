@@ -1,0 +1,49 @@
+fragment pokemonBasics on pokemon_v2_pokemon {
+    id
+    name
+    types: pokemon_v2_pokemontypes {
+        type: pokemon_v2_type {
+            name
+        }
+    }
+}
+
+fragment pokemonPhysical on pokemon_v2_pokemon {
+    height
+    weight
+}
+
+fragment pokemonStats on pokemon_v2_pokemon {
+    stats: pokemon_v2_pokemonstats {
+        base_stat
+        type: pokemon_v2_stat {
+            name
+        }
+    }
+}
+
+fragment pokemonSpecy on pokemon_v2_pokemon {
+    specy: pokemon_v2_pokemonspecy {
+        name
+        flavorText: pokemon_v2_pokemonspeciesflavortexts(
+            limit: 1,
+            where: { language_id: { _eq: 9 } },
+            order_by: { version_id: desc }
+        ) {
+            flavor_text
+        }
+        names: pokemon_v2_pokemonspeciesnames(where: { language_id: { _eq:9 } }) {
+            genus
+        }
+    }
+}
+
+fragment pokemonSprites on pokemon_v2_pokemon {
+    sprites:pokemon_v2_pokemonsprites {
+        frontDefault: sprites(path:"front_default")
+        backDefault: sprites(path:"back_default")
+        home: sprites(path:"other.home.front_default")
+        dreamWorld: sprites(path:"other.dream_world.front_default")
+        official: sprites(path:"other.official-artwork.front_default")
+    }
+}
