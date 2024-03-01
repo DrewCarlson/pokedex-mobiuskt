@@ -15,7 +15,7 @@ composeCompiler = "1.5.8"
 composejb = "1.6.0-beta01"
 composejbCompiler = "1.5.8"
 precompose = "1.5.10"
-coil = "3.0.0-alpha04"
+coil = "3.0.0-alpha06"
 apollo = "4.0.0-beta.2"
 activityCompose = "1.8.2"
 # Android
