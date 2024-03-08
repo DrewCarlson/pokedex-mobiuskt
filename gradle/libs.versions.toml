@@ -1,6 +1,6 @@
 [versions]
 kotlin = { strictly = "1.9.22" }
-ksp = "1.9.22-1.0.17"
+ksp = "1.9.23-1.0.19"
 kover = "0.7.5"
 agp = "8.2.2"
 mobiuskt = "1.2.1"
