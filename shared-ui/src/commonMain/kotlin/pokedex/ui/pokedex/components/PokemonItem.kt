@@ -12,7 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.drewcarlson.`shared-ui`.generated.resources.Res
+import org.drewcarlson.shared_ui.generated.resources.Res
+import org.drewcarlson.shared_ui.generated.resources.pokeballBackground
 import org.jetbrains.compose.resources.painterResource
 import pokedex.model.Pokemon
 import pokedex.ui.home.components.AsyncImage
@@ -42,7 +43,7 @@ internal fun PokemonItem(
         ) {
             Box {
                 Image(
-                    painter = painterResource(Res.drawable.pokeballbackground),
+                    painter = painterResource(Res.drawable.pokeballBackground),
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.matchParentSize()

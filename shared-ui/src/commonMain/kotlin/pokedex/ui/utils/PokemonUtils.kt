@@ -2,7 +2,7 @@ package pokedex.ui.utils
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
-import org.drewcarlson.`shared-ui`.generated.resources.Res
+import org.drewcarlson.shared_ui.generated.resources.*
 import pokedex.ui.theme.*
 
 object PokemonUtils {

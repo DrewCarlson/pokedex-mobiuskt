@@ -14,15 +14,11 @@ dependencies {
 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
     applyDefaultHierarchyTemplate()
-    jvm()
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
+    jvmToolchain(17)
+
+    jvm()
+    androidTarget()
 
     iosX64()
     iosArm64()
@@ -93,7 +89,6 @@ kotlin {
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
         if (name != "kspCommonMainKotlinMetadata") {
             dependsOn("kspCommonMainKotlinMetadata")
         }

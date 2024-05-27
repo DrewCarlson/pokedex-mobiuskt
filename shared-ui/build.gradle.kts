@@ -2,7 +2,8 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
 }
 
@@ -10,24 +11,13 @@ dependencies {
     kspCommonMainMetadata(libs.koin.ksp)
 }
 
-compose {
-    kotlinCompilerPlugin.set(libs.versions.composejbCompiler.get())
-}
-
 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
+    jvmToolchain(17)
     applyDefaultHierarchyTemplate()
-    jvm("desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "17"
-        }
-    }
+    jvm("desktop")
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions.jvmTarget = "17"
-        }
-    }
+    androidTarget()
 
     configure(
         listOf(
@@ -135,7 +125,6 @@ kotlin {
         }
 
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions.jvmTarget = "17"
             if (name != "kspCommonMainKotlinMetadata") {
                 dependsOn("kspCommonMainKotlinMetadata")
             }
@@ -148,9 +137,6 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

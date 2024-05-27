@@ -2,12 +2,13 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
+    jvmToolchain(17)
     jvm {
-        jvmToolchain(17)
         withJava()
     }
     sourceSets {
@@ -23,7 +24,6 @@ kotlin {
 }
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.composejbCompiler.get())
     desktop {
         application {
             mainClass = "MainKt"

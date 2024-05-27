@@ -13,13 +13,11 @@ Data is provided by the [PokeApi GraphQL](https://pokeapi.co/docs/graphql) servi
 
 **Libraries**
 
-- [Mobius.kt](https://drewcarlson.github.io/mobius.kt/) for presentation architecture.
-- [Compose multiplatform](https://github.com/JetBrains/compose-multiplatform): a modern UI framework for Kotlin.
 - [PreCompose](https://tlaster.github.io/PreCompose/): for navigation.
 - [Ktor](https://github.com/ktorio/ktor): for networking.
 - [Apollo](https://www.apollographql.com/docs/kotlin/): GraphQL client and data caching.
 - [Koin](https://github.com/InsertKoinIO/koin): for dependency injection.
-- [Material 3](https://m3.material.io/components): Material 3 components.
+- [Material 3](https://m3.material.io/components): Material 3 Compose UI components.
 
 ## TODO
 

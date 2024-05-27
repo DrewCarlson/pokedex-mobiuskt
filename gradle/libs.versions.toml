@@ -1,22 +1,20 @@
 [versions]
-kotlin = { strictly = "1.9.22" }
-ksp = "1.9.22-1.0.17"
+kotlin = { strictly = "2.0.0" }
+ksp = "2.0.0-1.0.21"
 kover = "0.7.5"
 agp = "8.2.2"
-mobiuskt = "1.2.1"
-coroutines = "1.7.3"
-serialization = "1.6.2"
-ktorio = "2.3.8"
+mobiuskt = "1.3.0"
+coroutines = "1.8.1"
+serialization = "1.7.0-RC"
+ktorio = "2.3.11"
 koin = "3.5.3"
 koinAnnotations = "1.3.1"
 koinAndroid = "3.5.3"
 koinAndroidxCompose = "3.5.3"
-composeCompiler = "1.5.8"
-composejb = "1.6.0-beta01"
-composejbCompiler = "1.5.8"
-precompose = "1.5.10"
-coil = "3.0.0-alpha04"
-apollo = "4.0.0-beta.2"
+composejb = "1.6.10"
+precompose = "1.6.0"
+coil = "3.0.0-alpha06"
+apollo = "4.0.0-beta.6"
 activityCompose = "1.8.2"
 # Android
 compileSdk = "34"
@@ -29,7 +27,8 @@ jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-composejb = { id = "org.jetbrains.compose", version.ref = "composejb" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "composejb" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 androidkt = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -83,8 +82,8 @@ apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.
 apollo-caching = { module = "com.apollographql.apollo3:apollo-normalized-cache-sqlite", version.ref = "apollo" }
 apollo-ktor = { module = "com.apollographql.apollo3:apollo-engine-ktor", version.ref = "apollo" }
 
-material-sizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version = "0.5.0-alpha03" }
+material-sizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version = "0.5.0" }
 
-stately = { module = "co.touchlab:stately-common", version = { strictly = "2.0.6" } }
+stately = { module = "co.touchlab:stately-common", version = { strictly = "2.0.7" } }
 
 compose-material3-android = { module = "androidx.compose.material3:material3 ", version = "1.2.0-rc01" }

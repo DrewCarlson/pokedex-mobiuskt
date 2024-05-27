@@ -63,11 +63,11 @@ internal fun PokedexContent(
                         .padding(top = 20.dp, bottom = 6.dp)
                 )
 
-                Divider(
-                    color = MaterialTheme.colorScheme.outline.copy(alpha = .4f),
+                HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
+                        .padding(horizontal = 20.dp),
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = .4f)
                 )
 
                 if (state.isLoading) {
