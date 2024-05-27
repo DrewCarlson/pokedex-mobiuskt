@@ -6,8 +6,8 @@ import com.apollographql.apollo3.cache.normalized.api.MemoryCacheFactory
 import com.apollographql.apollo3.cache.normalized.api.NormalizedCacheFactory
 import com.apollographql.apollo3.cache.normalized.fetchPolicy
 import com.apollographql.apollo3.cache.normalized.normalizedCache
-import com.apollographql.apollo3.cache.normalized.sql.SqlNormalizedCacheFactory
-import com.apollographql.apollo3.network.ktorClient
+//import com.apollographql.apollo3.cache.normalized.sql.SqlNormalizedCacheFactory
+//import com.apollographql.apollo3.network.ktorClient
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -39,13 +39,13 @@ val networkModule: (dbUrl: String, enableLogging: Boolean) -> Module = { dbUrl, 
         }
         single<NormalizedCacheFactory> {
             MemoryCacheFactory(maxSizeBytes = 10 * 1024 * 1024)
-                .chain(SqlNormalizedCacheFactory(dbUrl))
+                //.chain(SqlNormalizedCacheFactory(dbUrl))
         }
         single {
             ApolloClient.Builder()
                 .serverUrl("https://beta.pokeapi.co/graphql/v1beta")
                 .normalizedCache(get())
-                .ktorClient(get())
+                //.ktorClient(get())
                 .fetchPolicy(FetchPolicy.CacheFirst)
                 .build()
         }

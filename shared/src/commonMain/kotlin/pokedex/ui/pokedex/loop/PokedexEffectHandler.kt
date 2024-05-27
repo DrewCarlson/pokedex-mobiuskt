@@ -4,7 +4,7 @@ import com.apollographql.apollo3.ApolloClient
 import kt.mobius.flow.ExecutionPolicy
 import kt.mobius.flow.FlowTransformer
 import kt.mobius.flow.subtypeEffectHandler
-import org.koin.core.annotation.Factory
+//import org.koin.core.annotation.Factory
 import pokedex.graphql.PokemonListQuery
 import pokedex.model.toPokemon
 import pokedex.ui.navigation.AppNavigation
@@ -14,7 +14,7 @@ import pokedex.ui.pokedex.loop.PokedexEvent as Event
 // The amount of items to request for each page
 private const val PAGE_SIZE = 30
 
-@Factory
+//@Factory
 class PokedexEffectHandler(
     private val apolloClient: ApolloClient,
     private val navigation: AppNavigation,

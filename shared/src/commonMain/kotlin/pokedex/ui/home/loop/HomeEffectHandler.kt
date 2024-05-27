@@ -4,14 +4,14 @@ import com.apollographql.apollo3.ApolloClient
 import kt.mobius.flow.ExecutionPolicy
 import kt.mobius.flow.FlowTransformer
 import kt.mobius.flow.subtypeEffectHandler
-import org.koin.core.annotation.Factory
+//import org.koin.core.annotation.Factory
 import pokedex.graphql.PokemonSearchQuery
 import pokedex.model.toPokemon
 import pokedex.ui.navigation.AppNavigation
 import pokedex.ui.home.loop.HomeEffect as Effect
 import pokedex.ui.home.loop.HomeEvent as Event
 
-@Factory
+//@Factory
 class HomeEffectHandler(
     private val apolloClient: ApolloClient,
     private val navigation: AppNavigation
