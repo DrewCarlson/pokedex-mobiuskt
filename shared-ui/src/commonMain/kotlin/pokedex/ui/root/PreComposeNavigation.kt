@@ -3,10 +3,10 @@ package pokedex.ui.root
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import moe.tlaster.precompose.navigation.Navigator
-import org.koin.core.annotation.Single
+//import org.koin.core.annotation.Single
 import pokedex.ui.navigation.AppNavigation
 
-@Single
+//@Single
 class PreComposeNavigation : AppNavigation {
 
     private var navigator: Navigator? = null

@@ -1,3 +1,8 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -8,10 +13,9 @@ plugins {
 }
 
 dependencies {
-    kspCommonMainMetadata(libs.koin.ksp)
+    //kspCommonMainMetadata(libs.koin.ksp)
 }
 
-@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
     jvmToolchain(17)
     applyDefaultHierarchyTemplate()
@@ -19,6 +23,23 @@ kotlin {
 
     androidTarget()
 
+    wasmJs {
+        moduleName = "pokedex"
+        binaries.executable()
+        browser {
+            commonWebpackConfig {
+                outputFileName = "pokedex.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        // Serve sources to debug inside browser
+                        add(project.projectDir.path)
+                        add(project.projectDir.path + "/commonMain/")
+                        add(project.projectDir.path + "/wasmJsMain/")
+                    }
+                }
+            }
+        }
+    }
     configure(
         listOf(
             iosX64(),
@@ -31,7 +52,6 @@ kotlin {
                 baseName = "pokedex"
                 isStatic = true
 
-                freeCompilerArgs += listOf("-Xallocator=custom")
                 linkerOpts.add("-lsqlite3")
 
                 export(libs.mobiuskt.core)
@@ -90,7 +110,7 @@ kotlin {
                 implementation(compose.materialIconsExtended)
 
                 // Koin
-                api(libs.koin.annotations)
+                // api(libs.koin.annotations)
                 api(libs.koin.core)
                 api(libs.koin.compose)
                 implementation(libs.stately)
@@ -108,8 +128,7 @@ kotlin {
 
                 implementation(libs.coil)
                 implementation(libs.coil.compose)
-                implementation(libs.coil.network.ktor)
-
+                implementation(libs.coil.network.ktor.get())
                 api(libs.precompose)
                 api(libs.precompose.viewmodel)
 
@@ -127,6 +146,17 @@ kotlin {
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
             if (name != "kspCommonMainKotlinMetadata") {
                 dependsOn("kspCommonMainKotlinMetadata")
+            }
+        }
+    }
+}
+
+configurations.all {
+    if (name.startsWith("wasmJs")) {
+        resolutionStrategy.eachDependency {
+            if (requested.group.startsWith("io.ktor") &&
+                requested.name.startsWith("ktor-client-")) {
+                useVersion(libs.versions.ktorio.get())
             }
         }
     }

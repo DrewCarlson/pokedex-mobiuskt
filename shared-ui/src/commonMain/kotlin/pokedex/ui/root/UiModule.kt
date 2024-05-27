@@ -1,8 +1,8 @@
 package pokedex.ui.root
 
-import org.koin.core.annotation.ComponentScan
-import org.koin.core.annotation.Module
+//import org.koin.core.annotation.ComponentScan
+//import org.koin.core.annotation.Module
 
-@Module
-@ComponentScan
+//@Module
+//@ComponentScan
 class UiModule

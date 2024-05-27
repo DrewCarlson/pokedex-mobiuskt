@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -8,10 +12,9 @@ plugins {
 
 dependencies {
     kspCommonMainMetadata(libs.mobiuskt.codegen)
-    kspCommonMainMetadata(libs.koin.ksp)
+    //kspCommonMainMetadata(libs.koin.ksp)
 }
 
-@OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 kotlin {
     applyDefaultHierarchyTemplate()
 
@@ -19,6 +22,9 @@ kotlin {
 
     jvm()
     androidTarget()
+    wasmJs {
+        browser()
+    }
 
     iosX64()
     iosArm64()
@@ -38,7 +44,8 @@ kotlin {
             dependencies {
                 implementation(libs.apollo.runtime)
                 implementation(libs.apollo.caching)
-                implementation(libs.apollo.ktor)
+                //implementation(libs.apollo.caching.sqlite)
+                //implementation(libs.apollo.ktor)
                 // Ktor
                 api(libs.ktor.client.core)
                 api(libs.ktor.client.contentNegotiation)
@@ -47,7 +54,7 @@ kotlin {
 
                 // Koin
                 api(libs.koin.core)
-                implementation(libs.koin.annotations)
+                //implementation(libs.koin.annotations)
                 implementation(libs.stately)
 
                 // KotlinX Serialization Json
@@ -78,6 +85,12 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
+            }
+        }
+
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
             }
         }
 

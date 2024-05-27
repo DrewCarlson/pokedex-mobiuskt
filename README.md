@@ -9,7 +9,7 @@ Data is provided by the [PokeApi GraphQL](https://pokeapi.co/docs/graphql) servi
 
 **UI Frameworks**
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/): iOS Only
-* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): Android, iOS, Jvm, macOS
+* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/): Android, iOS, Jvm, macOS, Web (WASM)
 
 **Libraries**
 
