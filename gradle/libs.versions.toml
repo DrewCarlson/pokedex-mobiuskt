@@ -62,7 +62,7 @@ mobiuskt-codegen = { module = "org.drewcarlson:mobiuskt-codegen", version.ref = 
 mobiuskt-codegen-api = { module = "org.drewcarlson:mobiuskt-codegen-api", version.ref = "mobiuskt" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version = "1.1.2" }
+koin-compose = { module = "io.insert-koin:koin-compose", version = "1.1.5" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-android-compat = { module = "io.insert-koin:koin-android-compat", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
