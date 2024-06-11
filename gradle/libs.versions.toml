@@ -1,7 +1,7 @@
 [versions]
 kotlin = { strictly = "2.0.0" }
 ksp = "2.0.0-1.0.21"
-kover = "0.7.5"
+kover = "0.8.1"
 agp = "8.2.2"
 mobiuskt = "1.3.0"
 coroutines = "1.8.1"
