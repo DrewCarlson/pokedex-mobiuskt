@@ -86,4 +86,4 @@ material-sizeclass = { module = "dev.chrisbanes.material3:material3-window-size-
 
 stately = { module = "co.touchlab:stately-common", version = { strictly = "2.0.7" } }
 
-compose-material3-android = { module = "androidx.compose.material3:material3 ", version = "1.2.0-rc01" }
+compose-material3-android = { module = "androidx.compose.material3:material3 ", version = "1.2.1" }
